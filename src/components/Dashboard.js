@@ -9,14 +9,15 @@ function Dashboard() {
   const [info, setInfo] = useState([{}]);
   const [status, setStatus] = useState();
   const [id, setId] = useState();
+  const [sync, setSync] = useState(false);
 
   useEffect(() => {
     API.get("api/pelatihan").then((response) => {
-      console.log(response);
+      //   console.log(response);
       setData(response.data.pelatihan);
       setInfo(response.data);
     });
-  }, []);
+  }, [sync]);
 
   return (
     <div className="row mx-3 my-3">
@@ -41,9 +42,9 @@ function Dashboard() {
         </button>
         <Table data={data} />
         {id === null ? (
-          <Formtambah id={null} setId={null} />
+          <Formtambah id={null} setId={null} setSync={null} />
         ) : (
-          <Formtambah id={id} setId={setId} />
+          <Formtambah id={id} setId={setId} setSync={setSync} />
         )}
       </div>
     </div>

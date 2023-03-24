@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../utils/api";
 
-function Formtambah({ id }) {
+function Formtambah({ id, setId, setSync }) {
   const [data, setData] = useState({});
   const [message, setMessage] = useState({});
 
@@ -27,7 +27,7 @@ function Formtambah({ id }) {
           .then((response) =>
             setMessage((current) => ({
               status: response.status,
-              message: response.data.message,
+              message: response.data,
             }))
           )
           .catch((err) => console.log(err));
@@ -37,12 +37,12 @@ function Formtambah({ id }) {
     } else {
       try {
         return await API.put(`/api/pelatihan/${data.id}`, data)
-          .then((response) =>
+          .then((response) => {
             setMessage((current) => ({
               status: response.status,
               message: response.data.message,
-            }))
-          )
+            }));
+          })
           .catch((err) => console.log(err));
       } catch (err) {
         console.log(err);
@@ -74,7 +74,7 @@ function Formtambah({ id }) {
           </div>
           <div class="modal-body">
             <div className="row mx-3 mt-3">
-              {message.message && (
+              {message.message !== undefined && (
                 <div
                   className="alert alert-warning alert-dismissible fade show"
                   role="alert"
@@ -174,7 +174,10 @@ function Formtambah({ id }) {
               <button
                 type="submit"
                 className="btn btn-primary"
-                onClick={submitForm}
+                onClick={() => {
+                  submitForm();
+                  setSync(1);
+                }}
               >
                 Submit
               </button>
