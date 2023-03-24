@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../utils/api";
 
-function Formtambah({ id, setId, setSync }) {
+function Formtambah({ id }) {
   const [data, setData] = useState({});
   const [message, setMessage] = useState({});
 
@@ -174,10 +174,7 @@ function Formtambah({ id, setId, setSync }) {
               <button
                 type="submit"
                 className="btn btn-primary"
-                onClick={() => {
-                  submitForm();
-                  setSync(1);
-                }}
+                onClick={submitForm}
               >
                 Submit
               </button>
